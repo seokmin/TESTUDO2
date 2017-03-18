@@ -2,3 +2,4 @@ Temp/
 Obj/
 UnityGenerated/
 Library/
+*/.vs/*
