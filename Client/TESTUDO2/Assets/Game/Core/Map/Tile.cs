@@ -34,6 +34,14 @@ namespace RpgMaker.Game.Core
 
 	public class Tile
 	{
+		internal Tile(TileMapSource.Node node)
+		{
+			Type = node._type;
+		}
+		
+		internal Tile() { }
+
+		public HexCoord Coord { get; internal set; }
 		public TileType Type { get; internal set; }
 		public List<TileObject> TileObjects { get; internal set; }
 	}

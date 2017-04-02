@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,11 @@ namespace RpgMaker.Game.Core
 		private Dictionary<HexCoord, Tile> _tiles;
 		public TileIndexer Tiles { get; private set; }
 
-		public class TileIndexer
+		// Hide ctor without Factory
+		private TileMap() { }
+
+		// This class prepared in order to support to access tiles with [i] operator
+		public class TileIndexer : IEnumerable<Tile>
 		{
 			private TileMap _map;
 
@@ -30,14 +35,28 @@ namespace RpgMaker.Game.Core
 					return result;
 				}
 			}
+
+			IEnumerator IEnumerable.GetEnumerator()
+			{
+				return _map._tiles.Values.GetEnumerator();
+			}
+
+			IEnumerator<Tile> IEnumerable<Tile>.GetEnumerator()
+			{
+				return _map._tiles.Values.GetEnumerator();
+			}
 		}
 
 		internal static class Factory
 		{
 			public static TileMap Create(TileMapSource source)
 			{
-				// TODO(sorae): impl..
-				return null;
+				var instance = new TileMap { _tiles = new Dictionary<HexCoord, Tile>() };
+
+				foreach (var node in source.Nodes)
+					instance._tiles.Add(node._coord, new Tile(node));
+
+				return instance;
 			}
 		}
 	}
