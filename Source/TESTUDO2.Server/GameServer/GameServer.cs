@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace TESTUDO2.Server.Game
 {
@@ -24,9 +22,10 @@ namespace TESTUDO2.Server.Game
 			// TODO(sorae): startup log
 
 			_matchMother = MatchMother.Factory.Create();
-			_matchMother.Run();
+			Task.Factory.StartNew(_matchMother.Run);
 
 			OnAppFinished.WaitOne();
+
 			IsRunning = false;
 		}
 
