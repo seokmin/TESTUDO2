@@ -13,4 +13,8 @@
     <OutputPath>..\..\..\Bin\Server\Release</OutputPath>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TCPService\TESTUDO2.Server.TCPService.csproj" />
+  </ItemGroup>
+
 </Project>

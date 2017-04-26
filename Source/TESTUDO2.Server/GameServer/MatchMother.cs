@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using TESTUDO2.Server.TCPService;
+﻿using TESTUDO2.Server.TCPService;
 
 namespace TESTUDO2.Server.Game
 {
-    internal class MatchMother
+	internal class MatchMother
     {
 		internal bool IsRunning { get; private set; } = false;
 
-		private PacketEater packetEater { get; set; } = null;
+		private PacketSubscriber Subscriber { get; set; } = null;
 
 		internal void Run()
 		{
@@ -20,8 +16,13 @@ namespace TESTUDO2.Server.Game
 
 			while(this.IsRunning)
 			{
-				packetEater?.GetPacketAsync();
+				Subscriber?.GetPacketAsync();			
 			}
+		}
+
+		private void processPacket(Packet packet)
+		{
+
 		}
 
 		internal void Stop()

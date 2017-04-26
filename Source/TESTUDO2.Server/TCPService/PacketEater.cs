@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace TESTUDO2.Server.TCPService
 {
-	public class PacketEater
+	public class PacketSubscriber
 	{
-		private PacketEater() { }
+		private PacketSubscriber() { }
 
 		private PacketFeeder packetFeeder = null;
 
@@ -18,7 +18,7 @@ namespace TESTUDO2.Server.TCPService
 
 		public static class Factory
 		{
-			public static PacketEater Create(PacketFeeder targetFeeder)
+			public static PacketSubscriber Create(PacketFeeder targetFeeder)
 			{
 				if (targetFeeder == null)
 				{
