@@ -1,4 +1,7 @@
-﻿using TESTUDO2.Server.TCPService;
+﻿using System.Collections.Concurrent;
+using System.Threading;
+using TESTUDO2.Server.Game.Protocols;
+using TESTUDO2.Server.TCPService;
 
 namespace TESTUDO2.Server.Game
 {
@@ -6,23 +9,48 @@ namespace TESTUDO2.Server.Game
     {
 		internal bool IsRunning { get; private set; } = false;
 
-		private PacketSubscriber Subscriber { get; set; } = null;
+		private PacketFeeder feeder { get; set; } = null;
 
-		internal void Run()
+		private ConcurrentQueue<Packet> receivePacketQueue { get; set; } = null;
+
+		internal void Start()
 		{
 			if (this.IsRunning)
 				return;
 			this.IsRunning = true;
 
-			while(this.IsRunning)
+			var signalForPacketArrival = new AutoResetEvent(false);
+			this.feeder.SubscribePacket<PacketJoinMatchReq>(null, this.receivePacketQueue, signalForPacketArrival);
+
+			while (this.IsRunning)
 			{
-				Subscriber?.GetPacketAsync();			
+				signalForPacketArrival.WaitOne();
+				processArrivedPackets();
 			}
 		}
 
-		private void processPacket(Packet packet)
+		private void processArrivedPackets()
 		{
+			while (this.receivePacketQueue.TryDequeue(out Packet recentPacket))
+			{
+				processSinglePacket(recentPacket);
+			}
+		}
 
+		private void processSinglePacket(Packet packet)
+		{
+			if(packet is PacketJoinMatchReq)
+			{
+			}
+			else
+			{
+				// TODO(sorae): Log error
+			}
+		}
+
+		private void acceptNewPlayer(uint sessionId)
+		{
+			
 		}
 
 		internal void Stop()

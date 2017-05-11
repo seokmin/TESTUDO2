@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Concurrent;
+using System.Threading;
 
 namespace TESTUDO2.Server.TCPService
 {
     public class PacketFeeder
     {
-		public async Task<Packet> GetPacketAsync()
+		// null sessionId means all sessions
+		public void SubscribePacket<T>(uint? sessionId, ConcurrentQueue<Packet> receivePacketQueue, AutoResetEvent eventForNotice) where T : Packet
 		{
-			return null;
-			// TODO(sorae): impl..
+
 		}
-    }
+	}
 }

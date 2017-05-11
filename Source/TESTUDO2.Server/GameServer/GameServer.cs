@@ -22,7 +22,7 @@ namespace TESTUDO2.Server.Game
 			// TODO(sorae): startup log
 
 			_matchMother = MatchMother.Factory.Create();
-			Task.Factory.StartNew(_matchMother.Run);
+			Task.Factory.StartNew(_matchMother.Start);
 
 			OnAppFinished.WaitOne();
 
