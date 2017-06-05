@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="NetworkService.cpp" />
+    <ClCompile Include="SessionInfo.cpp" />
+    <ClCompile Include="PacketQueue.cpp" />
+    <ClCompile Include="Session.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NetworkService.h" />
+    <ClInclude Include="PacketQueue.h" />
+    <ClInclude Include="Packet.h" />
+    <ClInclude Include="Pool.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="DataStructures">
+      <UniqueIdentifier>{b13696f0-200e-4220-ad5f-fee7dd2d405a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
